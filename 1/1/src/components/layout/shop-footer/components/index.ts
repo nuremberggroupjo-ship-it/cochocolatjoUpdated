@@ -1,0 +1,5 @@
+export { ContactItem } from "./contact-item"
+export { FooterSectionWrapper } from "./footer-section-wrapper"
+export { SocialIcon } from "./social-icon"
+export { Copyright } from "./copyright"
+export { JoinTheTeamForm } from "./join-the-team-form"
