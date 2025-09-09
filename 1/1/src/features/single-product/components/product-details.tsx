@@ -107,12 +107,12 @@ export const ProductDetails: FC<
         </div>
       )}
 
-    <div className="flex items-center gap-2">
+   {size &&  <div className="flex items-center gap-2">
   <h3 className="text-base font-semibold md:text-lg">Size:</h3>
   <p className="text-muted-foreground text-sm leading-relaxed">
     {size} {unit}
   </p>
-</div>
+</div>}
 
 
       {/* Actions */}
