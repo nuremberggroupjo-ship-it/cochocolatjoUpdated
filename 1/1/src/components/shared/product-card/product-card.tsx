@@ -39,11 +39,12 @@ export const ProductCard: FC<ProductCardProps> = ({
     ((Number(price) - Number(discountPrice)) / Number(price)) * 100
 
   return (
-    <li className="group/product-card border-border/50 relative flex flex-col overflow-hidden rounded-lg border shadow sm:h-56 md:h-140">
-      {/* image container with fixed height */}
+    // Fixed card height per breakpoint so all cards match
+    <li className="group/product-card border-border/50 relative flex flex-col overflow-hidden rounded-lg border shadow h-[28rem] sm:h-[30rem] md:h-[36rem]">
+      {/* image container: take half of the card height so all images are the same size */}
       <Link
         href={href}
-        className="relative h-48 w-full overflow-hidden sm:h-56 md:h-64"
+        className="relative w-full overflow-hidden h-1/2"
       >
         <Image
           src={src}
@@ -65,27 +66,25 @@ export const ProductCard: FC<ProductCardProps> = ({
         </Badge>
       )}
 
-      {/* content */}
-      <div className="flex flex-1 flex-col gap-y-2 p-4">
-        <div className="flex flex-col justify-between gap-y-2 md:flex-row">
-          {/* Title */}
+      {/* content: fill remaining space and keep action buttons bottom-aligned */}
+      <div className="flex flex-1 flex-col justify-between gap-y-2 p-4">
+        <div className="flex items-start justify-between gap-y-2 md:flex-row">
+          {/* Title - take available space so price lines up at the right */}
           <Link
             href={href}
-            className="group-hover/product-card:text-primary line-clamp-1 text-base font-semibold tracking-wide duration-200 sm:text-sm md:text-lg"
+            className="flex-1 group-hover/product-card:text-primary line-clamp-1 text-base font-semibold tracking-wide duration-200 sm:text-sm md:text-lg"
           >
             {name}
           </Link>
 
-          {/* Price - mobile defaults are small */}
-          <div className="mb-1 flex flex-col items-end gap-0.5 whitespace-nowrap text-right">
+          {/* Price */}
+          <div className="ml-3 mb-1 flex flex-col items-end gap-0.5 whitespace-nowrap text-right">
             {isDiscountActive && discountPrice ? (
               <>
-                {/* original price: very small on mobile, slightly larger on sm/md */}
                 <span className="text-muted-foreground text-[11px] sm:text-xs md:text-sm line-through">
                   {price.toString()} JOD
                 </span>
 
-                {/* discounted price: small on mobile, grows on larger screens */}
                 <span className="text-red-600 text-sm sm:text-base md:text-lg font-semibold">
                   {discountPrice.toString()} JOD
                 </span>
@@ -98,20 +97,23 @@ export const ProductCard: FC<ProductCardProps> = ({
           </div>
         </div>
         
-        {/* Description */}
-        <p className="text-muted-foreground mb-4 line-clamp-2 text-sm sm:text-xs md:text-sm">
+        {/* Description - give a minimum height so cards remain aligned when short text or missing size */}
+        <p className="text-muted-foreground mb-2 line-clamp-2 text-sm sm:text-xs md:text-sm min-h-[2.25rem]">
           {shortDescription}
         </p>
 
-        {/* size and unit */}
-        {size && (
+        {/* size and unit - keep reserved vertical space so presence/absence doesn't shift other elements */}
+        {size ? (
           <div className="text-black mb-1 inline-flex items-baseline gap-1">
             Size:
             <span className="font-semibold">{size}{unit}</span>
           </div>
+        ) : (
+          // invisible placeholder to preserve spacing when size is not present
+          <div className="mb-1 min-h-[1.25rem]"></div>
         )}
 
-        {/* Action buttons */}
+        {/* Action buttons - stay at bottom */}
         <div className="mt-auto flex flex-row gap-2 sm:flex-row sm:gap-1 md:flex-row md:gap-2">
           <CartActionButton
             productId={id}
