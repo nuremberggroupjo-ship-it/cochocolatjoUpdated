@@ -39,7 +39,7 @@ export const ProductCard: FC<ProductCardProps> = ({
     ((Number(price) - Number(discountPrice)) / Number(price)) * 100
 
   return (
-    <li className="group/product-card border-border/50 relative flex flex-col overflow-hidden rounded-lg border shadow">
+    <li className="group/product-card border-border/50 relative flex flex-col overflow-hidden rounded-lg border shadow sm:h-56 md:h-140">
       {/* image container with fixed height */}
       <Link
         href={href}
@@ -106,7 +106,7 @@ export const ProductCard: FC<ProductCardProps> = ({
         {/* size and unit */}
         {size && (
           <div className="text-black mb-1 inline-flex items-baseline gap-1">
-            Size: 
+            Size:
             <span className="font-semibold">{size}{unit}</span>
           </div>
         )}

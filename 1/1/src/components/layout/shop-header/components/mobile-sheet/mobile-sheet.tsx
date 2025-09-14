@@ -21,6 +21,10 @@ import { SvgIcon } from "@/components/shared/svg-icon"
 import { MobileUserAuth } from "./components"
 
 export const MobileSheet: FC = () => {
+
+const navBarAfterFilter=  SHOP_MAIN_NAV_LIST.filter((ele)=>{
+    return ele.id!=="contact-us"
+  })
   const router = useRouter()
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false)
 
@@ -52,7 +56,7 @@ export const MobileSheet: FC = () => {
       {/* Navigation Links */}
       <nav>
         <ul className="flex grow flex-col">
-          {SHOP_MAIN_NAV_LIST.map((item, index) => (
+          {navBarAfterFilter.map((item, index) => (
             <li
               key={item.id}
               className="relative flex items-center justify-start"
@@ -70,6 +74,7 @@ export const MobileSheet: FC = () => {
                 )}
               >
                 {item.label}
+                
               </span>
               {item.comingSoon && (
                 <Badge

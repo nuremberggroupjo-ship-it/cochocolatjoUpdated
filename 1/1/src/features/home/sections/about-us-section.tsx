@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { FC } from "react"
 
-import AboutUsMainImage from "@/assets/images/about-us/about-us-main.webp"
+import AboutUsMainImage from "@/assets/images/about-us/about-us-11.webp"
 
 import { ReadMore } from "@/components/shared/read-more"
 
@@ -18,7 +18,7 @@ export const AboutUsSection: FC = () => {
             width={600}
             height={400}
             alt="About Us"
-            className="aspect-16/8 w-full rounded-lg object-cover"
+            className="aspect-8/8 w-full rounded-lg object-cover"
           />
         </div>
 
