@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import { FC, useState } from "react"
 
-import { AlignLeftIcon } from "lucide-react"
+import { AlignLeftIcon, KeyRoundIcon } from "lucide-react"
 
 import HeartSvg from "@/assets/svg/heart.svg"
 import WhatsappSvg from "@/assets/svg/whatsapp.svg"
@@ -21,9 +21,8 @@ import { SvgIcon } from "@/components/shared/svg-icon"
 import { MobileUserAuth } from "./components"
 
 export const MobileSheet: FC = () => {
-
-const navBarAfterFilter=  SHOP_MAIN_NAV_LIST.filter((ele)=>{
-    return ele.id!=="contact-us"
+  const navBarAfterFilter = SHOP_MAIN_NAV_LIST.filter((ele) => {
+    return ele.id !== "contact-us"
   })
   const router = useRouter()
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false)
@@ -40,7 +39,7 @@ const navBarAfterFilter=  SHOP_MAIN_NAV_LIST.filter((ele)=>{
       trigger={
         <Button
           size="icon"
-          variant="ghost"
+            variant="ghost"
           onClick={handleOpenSheet}
           className="text-muted-foreground size-auto !px-0 hover:bg-transparent lg:hidden"
         >
@@ -74,7 +73,6 @@ const navBarAfterFilter=  SHOP_MAIN_NAV_LIST.filter((ele)=>{
                 )}
               >
                 {item.label}
-                
               </span>
               {item.comingSoon && (
                 <Badge
@@ -116,6 +114,18 @@ const navBarAfterFilter=  SHOP_MAIN_NAV_LIST.filter((ele)=>{
             className="fill-primary size-5 stroke-2"
           />
           <span className="text-primary">{FOOTER_ADDRESS.phoneNumber}</span>
+        </li>
+
+        {/* NEW: Change Password */}
+        <li
+          onClick={() => {
+            handleCloseSheet()
+            router.push("/account/change-password")
+          }}
+          className="inline-flex items-center gap-2"
+        >
+          <KeyRoundIcon className="text-primary size-5" />
+          <span className="text-primary">Change Password</span>
         </li>
 
         <MobileUserAuth handleCloseSheet={handleCloseSheet} />
