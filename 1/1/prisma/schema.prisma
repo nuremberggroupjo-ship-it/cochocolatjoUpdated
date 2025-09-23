@@ -26,7 +26,7 @@ model User {
   favorites     Favorite[]
   orders        Order[]
   sessions      Session[]
-
+passwordResetToken PasswordResetToken?
   @@map("users")
 }
 
@@ -269,6 +269,19 @@ model OrderItem {
 
   @@id([orderId, productId], map: "order_items_order_id_product_id_pk")
   @@map("order_items")
+}
+
+
+// ADD this model near the bottom of your schema (do not duplicate if you decide to reuse Verification)
+model PasswordResetToken {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tokenHash String   @map("token_hash")
+  expiresAt DateTime @map("expires_at") @db.Timestamp(6)
+  userId    String   @map("user_id") @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId]) // Only one active token per user (optional)
+  @@map("password_reset_tokens")
 }
 
 enum UserRole {

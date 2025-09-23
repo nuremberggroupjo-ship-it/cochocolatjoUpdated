@@ -1,6 +1,5 @@
 /**
  * Authentication configuration using BetterAuth library
- * This file sets up the authentication system for the Co Chocolat application
  */
 import { type BetterAuthOptions, betterAuth } from "better-auth"
 import { prismaAdapter } from "better-auth/adapters/prisma"
@@ -8,113 +7,89 @@ import { createAuthMiddleware } from "better-auth/api"
 import { customSession, genericOAuth } from "better-auth/plugins"
 
 import { UserRole } from "@/lib/_generated/prisma"
-import { hashPassword, verifyPassword } from "@/lib/argon2"
+import { hashPassword, verifyPasswordObject } from "@/lib/argon2"
 import { env } from "@/lib/env"
 import mergeCarts from "@/lib/helpers/merge-carts"
 import mergeFavorites from "@/lib/helpers/merge-favorites"
 import prisma from "@/lib/prisma"
 import { normalizeName } from "@/lib/utils"
 
-/**
- * Authentication configuration options
- * This object defines all settings for the authentication system
- */
+const IS_DEV = process.env.NODE_ENV !== "production"
+
+function parseCsvEnv(value: string | undefined): string[] {
+  if (!value) return []
+  return value
+    .split(",")
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean)
+}
+
 export const options = {
-  // Application name for the auth system
   appName: "co_chocolat_auth",
   onAPIError: {
     errorURL: "/error",
   },
-  // Database configuration using Prisma adapter
+
   database: prismaAdapter(prisma, {
-    provider: "postgresql", // Specifies the database provider
+    provider: "postgresql",
   }),
 
-  /**
-   * Email and password authentication configuration
-   * Defines settings for traditional email/password login
-   */
   emailAndPassword: {
-    enabled: true, // Enable email/password authentication
-    minPasswordLength: 6, // Minimum password length
+    enabled: true,
+    minPasswordLength: 6,
     password: {
-      hash: hashPassword, // Function to hash passwords
-      verify: verifyPassword, // Function to verify passwords
+      hash: hashPassword,
+      // BetterAuth (this version) expects (data: { hash; password })
+      verify: verifyPasswordObject,
     },
   },
 
-  /**
-   * Social provider configuration
-   * Settings for third-party authentication providers
-   */
   socialProviders: {
     google: {
-      clientId: env.GOOGLE_CLIENT_ID, // Google OAuth client ID
-      clientSecret: env.GOOGLE_CLIENT_SECRET, // Google OAuth client secret
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
     },
     facebook: {
-      clientId: env.FACEBOOK_CLIENT_ID, // Facebook OAuth client ID
-      clientSecret: env.FACEBOOK_CLIENT_SECRET, // Facebook OAuth client secret
+      clientId: env.FACEBOOK_CLIENT_ID,
+      clientSecret: env.FACEBOOK_CLIENT_SECRET,
     },
   },
 
-  /**
-   * Advanced configuration options
-   * Fine-tuning of auth behavior
-   */
   advanced: {
     database: {
-      generateId: false, // Don't auto-generate IDs (let Prisma handle it)
+      generateId: false,
     },
   },
 
-  /**
-   * User configuration
-   * Defines additional fields and properties for user entities
-   */
   user: {
     additionalFields: {
       role: {
-        type: ["ADMIN", "USER"] as Array<UserRole>, // Define allowed user roles
-        input: false, // Don't allow this field in signup forms
+        type: ["ADMIN", "USER"] as Array<UserRole>,
+        input: false,
       },
       phone: {
-        type: "string", // Phone number field
-        input: false, // Allow this field in signup forms
+        type: "string",
+        input: false,
       },
       paymentMethod: {
-        type: "string", // Payment method field
-        input: false, // Don't allow this field in signup forms
+        type: "string",
+        input: false,
       },
     },
   },
 
-  /**
-   * Session configuration
-   * Settings for user sessions
-   */
   session: {
-    expiresIn: 30 * 24 * 60 * 60, // 30 days in seconds
+    expiresIn: 30 * 24 * 60 * 60,
     cookieCache: {
-      enabled: true, // Enable cookie caching for sessions
-      maxAge: 30 * 60, // Cache for 30 minutes
+      enabled: true,
+      maxAge: 30 * 60,
     },
   },
 
-  /**
-   * Request lifecycle hooks
-   * Functions that run during authentication request lifecycle
-   */
   hooks: {
-    // Runs before authentication requests are processed
     before: createAuthMiddleware(async (ctx) => {
-      // Handle email signup specifically
-      if (ctx.path === "/sign-up/email") {
-        // Normalize the user's name before saving it to the database
-        // This removes special characters and formats the name properly
+      if (ctx.path === "/sign-up/email" && ctx.body?.name) {
         const name = normalizeName(ctx.body.name)
-
-        // Return modified context with normalized name
         return {
           context: {
             ...ctx,
@@ -125,37 +100,37 @@ export const options = {
           },
         }
       }
-    }),
 
-    // 🔥 NEW: Handle favorite and cart merging and cleanup
-    after: createAuthMiddleware(async (ctx) => {
-      // Helper function to handle favorite and cart merging
-      const handleMerging = async (userId: string) => {
+      if (IS_DEV && ctx.path === "/sign-in/email") {
         try {
-          const sessionFavoriteId = ctx.getCookie("sessionFavoriteId")
-          const sessionCartId = ctx.getCookie("sessionCartId")
-
-          if (sessionFavoriteId && userId) {
-            // Merge favorites in the background (don't block the response)
-            console.log(
-              `Starting favorite merge for user ${userId} with session ${sessionFavoriteId}`,
-            )
-            await mergeFavorites(userId, sessionFavoriteId)
-          }
-
-          if (sessionCartId && userId) {
-            // Merge carts in the background (don't block the response)
-            console.log(
-              `Starting cart merge for user ${userId} with session ${sessionCartId}`,
-            )
-            await mergeCarts(userId, sessionCartId)
-          }
-        } catch (error) {
-          console.error(`Error accessing cookies during ${ctx.path}:`, error)
+          const rawEmail = ctx.body?.email
+          const normalized = rawEmail?.trim().toLowerCase()
+          const user = normalized
+            ? await prisma.user.findUnique({
+                where: { email: normalized },
+                include: { accounts: true },
+              })
+            : null
+          console.log("[LOGIN-DEBUG]", {
+            path: ctx.path,
+            email: rawEmail,
+            normalized,
+            userFound: !!user,
+            accounts: user?.accounts.map((a) => ({
+              id: a.id,
+              providerId: a.providerId,
+              accountId: a.accountId,
+              hasPassword: !!a.password,
+              updatedAt: a.updatedAt,
+            })),
+          })
+        } catch (e) {
+          console.log("[LOGIN-DEBUG] error", e)
         }
       }
+    }),
 
-      // Only handle merging during actual authentication events, not session checks
+    after: createAuthMiddleware(async (ctx) => {
       const isAuthenticationEvent =
         ctx.path.startsWith("/sign-up") ||
         ctx.path.startsWith("/sign-in") ||
@@ -165,52 +140,60 @@ export const options = {
         ctx.path.includes("/facebook") ||
         ctx.path.includes("/instagram")
 
-      // Skip session checks and other non-authentication requests
-      if (ctx.path === "/get-session" || !isAuthenticationEvent) {
+      if (ctx.path === "/get-session" || !isAuthenticationEvent) return
+
+      const session = ctx.context.session || ctx.context.newSession
+      if (!session?.user?.id) {
+        if (IS_DEV) {
+          console.log("[AUTH] Auth path but no session", { path: ctx.path })
+        }
         return
       }
 
-      // Only run merging logic during authentication events
-      const session = ctx.context.session || ctx.context.newSession
-      if (session?.user?.id) {
-        console.log(
-          `Authentication event for user: ${session.user.id} on path: ${ctx.path}`,
-        )
-        await handleMerging(session.user.id)
-      } else {
-        console.log(`Auth path but no session found: ${ctx.path}`)
+      const userId = session.user.id
+      try {
+        const sessionFavoriteId = ctx.getCookie("sessionFavoriteId")
+        const sessionCartId = ctx.getCookie("sessionCartId")
+
+        if (sessionFavoriteId) {
+          await mergeFavorites(userId, sessionFavoriteId)
+        }
+        if (sessionCartId) {
+          await mergeCarts(userId, sessionCartId)
+        }
+
+        if (IS_DEV) {
+          console.log("[AUTH] Merge complete", {
+            userId,
+            favoriteSession: sessionFavoriteId,
+            cartSession: sessionCartId,
+          })
+        }
+      } catch (error) {
+        console.error("[AUTH] Merge error", {
+          userId,
+            path: ctx.path,
+          error,
+        })
       }
     }),
   },
 
-  /**
-   * Database operation hooks
-   * Functions that run during database CRUD operations
-   */
   databaseHooks: {
     user: {
       create: {
-        // Runs before a user is created in the database
         before: async (user) => {
-          // Get admin email addresses from environment variables
-          const adminEmail = env.ADMIN_EMAIL.split(",") || []
-
-          // Assign ADMIN role if the email is in the admin list
-          if (adminEmail.includes(user.email)) {
+          const adminEmails = parseCsvEnv(env.ADMIN_EMAIL)
+          if (adminEmails.includes(user.email.toLowerCase())) {
             return { data: { ...user, role: UserRole.ADMIN } }
           }
-
-          // Otherwise, return user data unchanged (default role will be USER)
           return { data: user }
         },
       },
     },
   },
-} satisfies BetterAuthOptions // Type check against BetterAuth options
+} satisfies BetterAuthOptions
 
-/**
- * Initialize the authentication system with options and plugins
- */
 export const auth = betterAuth({
   ...options,
   plugins: [
@@ -225,36 +208,25 @@ export const auth = betterAuth({
         },
       ],
     }),
-
-    /**
-     * Custom session plugin
-     * Allows controlling what user data gets included in the session
-     */
     customSession(async ({ session, user }) => {
-      // Return carefully selected user and session data
-      // This controls what information is stored in the session cookie
       return {
         session: {
-          expiresAt: session.expiresAt, // When the session expires
-          token: session.token, // Session token
-          userAgent: session.userAgent, // User's browser info
+          expiresAt: session.expiresAt,
+          token: session.token,
+          userAgent: session.userAgent,
         },
         user: {
-          id: user.id, // User ID
-          email: user.email, // User email
-          name: user.name, // User name
-          image: user.image, // User profile image
-          createdAt: user.createdAt, // Account creation date
-          role: user.role, // User role (ADMIN or USER)
-          phone: user.phone, // User phone number
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          image: user.image,
+          createdAt: user.createdAt,
+          role: user.role,
+          phone: user.phone,
         },
       }
     }, options),
   ],
 })
 
-/**
- * Auth error codes type
- * This provides strongly-typed error handling for authentication errors
- */
 export type AuthErrorCode = keyof typeof auth.$ERROR_CODES | "UNKNOWN"

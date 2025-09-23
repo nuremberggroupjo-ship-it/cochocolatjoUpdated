@@ -1,9 +1,5 @@
-import { type Options, hash, verify } from "@node-rs/argon2"
+import { type Options, hash as argon2Hash, verify as argon2Verify } from "@node-rs/argon2"
 
-// memoryCost: The amount of memory to use, in kibibytes (KiB).
-// timeCost: The number of iterations to perform.
-// outputLen: The length of the output hash in bytes.
-// parallelism: The number of parallel threads to use.
 const options: Options = {
   memoryCost: 19456,
   timeCost: 2,
@@ -11,17 +7,29 @@ const options: Options = {
   parallelism: 1,
 }
 
+// Canonical hash function (plain -> hash)
 export async function hashPassword(password: string): Promise<string> {
-  const result = await hash(password, options)
-  return result
+  return argon2Hash(password, options)
 }
 
-export async function verifyPassword(data: {
-  password: string
-  hash: string
-}): Promise<boolean> {
-  const { password, hash } = data
-
-  const result = await verify(hash, password, options)
-  return result
+// Overloads allow BOTH signatures for internal convenience
+export function verifyPassword(hash: string, password: string): Promise<boolean>
+export function verifyPassword(data: { hash: string; password: string }): Promise<boolean>
+export async function verifyPassword(a: any, b?: any): Promise<boolean> {
+  if (typeof a === "string" && typeof b === "string") {
+    // (hash, password)
+    return argon2Verify(a, b, options)
+  }
+  if (typeof a === "object" && a?.hash && a?.password) {
+    return argon2Verify(a.hash, a.password, options)
+  }
+  throw new Error("Invalid arguments passed to verifyPassword")
 }
+
+/**
+ * Adapter specifically shaped for BetterAuth (data object form).
+ * (You could pass verifyPassword directly since overload includes object form,
+ * but separating makes intent explicit and avoids inference edge cases.)
+ */
+export const verifyPasswordObject = (data: { hash: string; password: string }) =>
+  verifyPassword(data)
