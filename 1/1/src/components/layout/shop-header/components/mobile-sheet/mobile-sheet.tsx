@@ -116,17 +116,7 @@ export const MobileSheet: FC = () => {
           <span className="text-primary">{FOOTER_ADDRESS.phoneNumber}</span>
         </li>
 
-        {/* NEW: Change Password */}
-        <li
-          onClick={() => {
-            handleCloseSheet()
-            router.push("/account/change-password")
-          }}
-          className="inline-flex items-center gap-2"
-        >
-          <KeyRoundIcon className="text-primary size-5" />
-          <span className="text-primary">Change Password</span>
-        </li>
+        
 
         <MobileUserAuth handleCloseSheet={handleCloseSheet} />
       </ul>

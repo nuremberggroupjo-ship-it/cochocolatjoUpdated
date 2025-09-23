@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { FC, useState, useTransition } from "react"
-
+import { AlignLeftIcon, KeyRoundIcon } from "lucide-react"
 import {
   ChevronDownIcon,
   ChevronUpIcon,
@@ -98,6 +98,16 @@ export const MobileUserAuth: FC<MobileUserAuthProps> = ({
               <ListOrderedIcon className="text-primary size-5 stroke-1" />
               <span className="text-primary">My orders</span>
             </li>
+            <li
+          onClick={() => {
+            handleCloseSheet()
+            router.push("/account/change-password")
+          }}
+          className="inline-flex items-center gap-2"
+        >
+          <KeyRoundIcon className="text-primary size-5" />
+          <span className="text-primary">Change Password</span>
+        </li>
             {isAdmin && (
               <li
                 className="inline-flex cursor-pointer items-center gap-2"
