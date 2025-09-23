@@ -128,6 +128,8 @@ export const AuthSectionWrapper: FC<AuthSectionWrapperProps> = ({
             </CardFooter>
           </>
         )}
+              {/*test  comment   */}
+
 
         {hideSocial && (
           <CardFooter className="flex justify-center pb-6 pt-2">

@@ -21,6 +21,8 @@ export default function ChangePasswordPage() {
       maxWidth="md"
       contentClassName="space-y-6"
     >
+            {/*test  comment   */}
+
       <ChangePasswordForm />
       
     </AuthSectionWrapper>
