@@ -67,7 +67,7 @@ export async function POST(req: Request) {
     // 2. If no 'credential', update/create 'email'.
     // 3. If neither exist, create 'credential'.
     let primary = accounts.find(a => a.providerId === "credential")
-    let secondary = accounts.find(a => a.providerId === "email")
+    const secondary = accounts.find(a => a.providerId === "email")
 
     if (!primary && !secondary) {
       // Create canonical 'credential'

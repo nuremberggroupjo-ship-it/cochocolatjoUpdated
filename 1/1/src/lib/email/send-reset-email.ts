@@ -20,9 +20,7 @@ export async function sendResetEmail({ to, resetUrl }: SendResetOptions) {
   const from = process.env.EMAIL_FROM
   if (!from) throw new Error("EMAIL_FROM missing. Must be a verified sender or onboarding@resend.dev")
 
-  // NOTE: If your domain is NOT verified yet, temporarily set:
-  // EMAIL_FROM=onboarding@resend.dev
-  // in your .env file so the email is accepted.
+  
 
   const html = `
     <div style="font-family:Arial,sans-serif;line-height:1.5;font-size:15px;color:#111">

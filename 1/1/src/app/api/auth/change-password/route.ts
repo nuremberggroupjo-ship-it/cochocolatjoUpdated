@@ -42,7 +42,7 @@ export async function POST(req: Request) {
     }
 
     // Prefer 'credential'
-    let primary =
+    const primary =
       accounts.find(a => a.providerId === "credential") || accounts[0]
 
     if (!primary.password) {
