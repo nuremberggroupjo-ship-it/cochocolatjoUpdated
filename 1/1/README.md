@@ -19,7 +19,6 @@ git remote add origin https://github.com/your-username/your-repo-name.git
 Push your code:
 git push -u origin main
 
-
 create .env file and Paste the following environment variables:
 check .env.example file to get fill details
 ENVIRONMENT VARIABLES
@@ -31,11 +30,12 @@ NEXT_PUBLIC_BASE_URL="http://localhost:3000
 NEXT_PUBLIC_LOCATION_LABEL="KADI Building, Yathreb Street, Dabouq"
 NEXT_PUBLIC_LOCATION_LINK="https://www.google.com/maps/place/Co+Chocolat+Jordan/@32.0082705,35.8326355,17z/data=!3m1!4b1!4m6!3m5!1s0x151ca1721b391b2d:0xba1266d1e6c270f6!8m2!3d32.0082705!4d35.8326355!16s%2Fg%2F11xrfcx75y?entry=ttu&g_ep=EgoyMDI1MDgxMS4wIKXMDSoASAFQAw==
 "
+APP_BASE_URL= "http://localhost:3000"
+EMAIL_FROM="example@apiSendProvider.com"  
 NEXT_PUBLIC_PHONE_NUMBER="+962 7 9330 8808"
 NEXT_PUBLIC_EMAIL="info@cochocolatjo.com
 "
 NEXT_PUBLIC_OPENING_HOURS="Sat-Thu: 10 AM - 10 PM | Friday: 2 PM - 10 PM"
-
 
 NEXT_PUBLIC_FACEBOOK_URL="https://web.facebook.com/cochocolat.jordan
 "
