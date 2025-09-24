@@ -40,36 +40,18 @@ export const MobileFilterSheet: FC<MobileFilterSheetProps> = ({
 
   const handleOpenSheet = () => setIsSheetOpen(true);
   const handleCloseSheet = () => setIsSheetOpen(false);
-  console.log(isPending);
 
-  // Robust apply: call parent updateFilters if available, otherwise push URL ourselves
   const applyFilters = (updates: Partial<FiltersType>) => {
-    console.log(
-      "MobileFilterSheet: applyFilters called:",
-      updates,
-      "have updateFilters?",
-      typeof updateFilters
-    );
-
     if (typeof updateFilters === "function") {
-      // Preferred: let parent handle optimistic state + router.push
-      try {
-        updateFilters(updates);
-      } catch (err) {
-        console.error("MobileFilterSheet: updateFilters threw:", err);
-      }
+      updateFilters(updates);
       return;
     }
 
-    const newState: FiltersType = {
-      ...optimisticFilters,
-      ...updates,
-    };
+    const newState: FiltersType = { ...optimisticFilters, ...updates };
 
-    // ensure locked slugs remain present in category
+    // ensure locked slugs remain
     newState.category = Array.from(new Set([...(newState.category ?? []), ...lockedSlugs]));
 
-    // Build new URLSearchParams from the current query string (safe)
     const newSearchParams = new URLSearchParams(searchParams.toString());
 
     Object.entries(newState).forEach(([key, value]) => {
@@ -83,14 +65,12 @@ export const MobileFilterSheet: FC<MobileFilterSheetProps> = ({
       }
     });
 
-    // drop page when filters change
     newSearchParams.delete("page");
 
     const qs = newSearchParams.toString();
     const url = qs ? `${pathname}?${qs}` : pathname;
 
     startTransition(() => {
-      console.log("MobileFilterSheet: fallback push ->", url);
       router.push(url);
     });
   };
@@ -109,7 +89,8 @@ export const MobileFilterSheet: FC<MobileFilterSheetProps> = ({
       open={isSheetOpen}
       onOpenChange={setIsSheetOpen}
     >
-      <section className="px-4">
+      {/* Scrollable container for small screens */}
+      <section className="px-4 max-h-[80vh] overflow-y-auto">
         <GenericCheckboxFilter
           title="categories"
           items={categories.map((category) => ({
@@ -154,9 +135,9 @@ export const MobileFilterSheet: FC<MobileFilterSheetProps> = ({
         <GenericCheckboxFilter
           title="size"
           items={[
-            { id: "unit-g", slug: "g", name: "g".toLowerCase(), count: 0 },
-            { id: "unit-kg", slug: "kg", name: "kg".toLowerCase(), count: 0 },
-            { id: "unit-ml", slug: "ml", name: "ml".toLowerCase(), count: 0 },
+            { id: "unit-g", slug: "g", name: "g", count: 0 },
+            { id: "unit-kg", slug: "kg", name: "kg", count: 0 },
+            { id: "unit-ml", slug: "ml", name: "ml", count: 0 },
           ]}
           selectedSlugs={optimisticFilters.unit}
           onSelectionChange={(unitSlugs) => {
