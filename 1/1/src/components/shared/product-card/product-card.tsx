@@ -62,12 +62,12 @@ export const ProductCard: FC<ProductCardProps> = ({
       )}
 
       {/* Content (under image) */}
-      <div className="flex flex-col justify-between flex-1 p-4 h-[45%]">
+      <div className="flex flex-col justify-between flex-1 p-4  ">
         {/* Name + Price in one row */}
         <div className="flex items-start justify-between gap-3">
           <Link
             href={href}
-            className="flex-1 group-hover/product-card:text-primary text-base sm:text-lg md:text-lg font-semibold tracking-wide duration-200 break-words"
+            className="flex-1 group-hover/product-card:text-primary text-sm sm:text-sm md:text-base lg:text-base xl:text-xl font-semibold tracking-wide duration-200 break-words"
           >
             {name}
           </Link>
@@ -92,8 +92,8 @@ export const ProductCard: FC<ProductCardProps> = ({
 
         {/* Size */}
         {size ? (
-          <div className="text-black inline-flex items-baseline gap-1 text-sm">
-            Size: <span className="font-semibold">{size}{unit}</span>
+          <div className="text-black inline-flex items-baseline gap-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg">
+            Size: <span className="font-semibold text-xs sm:text-xs md:text-base lg:text-base xl:text-lg">{size}{unit}</span>
           </div>
         ) : (
           <div className="min-h-[1.25rem]" />
