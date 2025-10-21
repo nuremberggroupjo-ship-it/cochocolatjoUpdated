@@ -136,7 +136,7 @@ export const MobileFilterSheet: FC<MobileFilterSheetProps> = ({
           title="size"
           items={[
             { id: "unit-g", slug: "g", name: "g", count: 0 },
-            { id: "unit-kg", slug: "kg", name: "kg", count: 0 },
+
             { id: "unit-ml", slug: "ml", name: "ml", count: 0 },
           ]}
           selectedSlugs={optimisticFilters.unit}

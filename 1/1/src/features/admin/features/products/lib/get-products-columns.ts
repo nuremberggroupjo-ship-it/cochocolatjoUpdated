@@ -46,7 +46,18 @@ export function getProductsColumns({
     updatedAtColumn<ProductData>(),
     isFeaturedColumn<ProductData>(),
     isActiveColumn<ProductData>(),
-
+    {
+      id: "size",
+      accessorKey: "size",
+      header: "Size",
+      enableHiding: true,
+    },
+    {
+      id: "unit",
+      accessorKey: "unit",
+      header: "Unit",
+      enableHiding: true,
+    },
     actionsColumn<ProductData>({
       setRowAction,
       editRoute: ADMIN_TABLE.products.routes.default,

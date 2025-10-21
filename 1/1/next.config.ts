@@ -60,6 +60,9 @@ const nextConfig: NextConfig = {
   },
 
   images: {
+    
+    domains: ['qytn7coh2c.ufs.sh'], 
+  
     remotePatterns: [
       {
         protocol: "https",

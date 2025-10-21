@@ -43,7 +43,6 @@ export const GenericCheckboxFilter: FC<GenericCheckboxFilterProps> = ({
       : selectedSlugs.filter((s) => s !== slug);
 
     onSelectionChange(updatedSlugs);
-    console.log("Toggled:", slug, checked);
   };
 
   return (

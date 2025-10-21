@@ -64,7 +64,7 @@ export const ProductsGridResult: FC<ProductsGridResultProps> = async ({
       <h2 className="mb-6 text-center text-2xl font-semibold lg:mb-8 lg:text-3xl">
         {title}
       </h2>
-      <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:gap-5 xl:grid-cols-4">
+      <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:gap-5 xl:grid-cols-3 ">
         {products.map((product) => (
           <ProductCard key={product.id} {...product} />
         ))}

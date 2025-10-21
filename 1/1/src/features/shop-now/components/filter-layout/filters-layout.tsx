@@ -175,7 +175,7 @@ export const FiltersLayout: FC<FiltersLayoutProps> = ({
           title="size"
           items={[
             { id: "unit-g", slug: "g", name: "g".toLowerCase(), count: 0 },
-            { id: "unit-kg", slug: "kg", name: "kg".toLowerCase(), count: 0 },
+           
             { id: "unit-ml", slug: "ml", name: "ml".toLowerCase(), count: 0 },
           ]}
           selectedSlugs={optimisticFilters.unit ?? []}

@@ -72,7 +72,7 @@ export const ProductCard: FC<ProductCardProps> = ({
           {/* Title - take available space so price lines up at the right */}
           <Link
             href={href}
-            className="flex-1 group-hover/product-card:text-primary line-clamp-1 text-base font-semibold tracking-wide duration-200 sm:text-sm md:text-lg"
+            className="flex-1 group-hover/product-card:text-primary line-clamp-1 text-sm  font-semibold tracking-wide duration-200"
           >
             {name}
           </Link>
