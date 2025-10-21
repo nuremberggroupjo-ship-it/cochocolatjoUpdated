@@ -18,7 +18,6 @@ interface ProductCardProps extends ProductData {
 
 export const ProductCard: FC<ProductCardProps> = ({
   name,
-  shortDescription,
   price,
   attributes,
   slug,
@@ -39,13 +38,9 @@ export const ProductCard: FC<ProductCardProps> = ({
     ((Number(price) - Number(discountPrice)) / Number(price)) * 100
 
   return (
-    // Fixed card height per breakpoint so all cards match
-    <li className="group/product-card border-border/50 relative flex flex-col overflow-hidden rounded-lg border shadow h-[28rem] sm:h-[30rem] md:h-[36rem]">
-      {/* image container: take half of the card height so all images are the same size */}
-      <Link
-        href={href}
-        className="relative w-full overflow-hidden h-1/2"
-      >
+    <li className="group/product-card border-border/50 relative flex flex-col overflow-hidden rounded-lg border shadow h-[28rem] sm:h-[28rem] md:h-[32rem]">
+      {/* Image container */}
+      <Link href={href} className="relative w-full overflow-hidden h-[55%]">
         <Image
           src={src}
           alt={`${name} product image`}
@@ -56,7 +51,7 @@ export const ProductCard: FC<ProductCardProps> = ({
         />
       </Link>
 
-      {/* discount badge */}
+      {/* Discount badge */}
       {isDiscountActive && (
         <Badge
           variant="gradientDestructive"
@@ -66,55 +61,46 @@ export const ProductCard: FC<ProductCardProps> = ({
         </Badge>
       )}
 
-      {/* content: fill remaining space and keep action buttons bottom-aligned */}
-      <div className="flex flex-1 flex-col justify-between gap-y-2 p-4">
-        <div className="flex items-start justify-between gap-y-2 md:flex-row">
-          {/* Title - take available space so price lines up at the right */}
+      {/* Content (under image) */}
+      <div className="flex flex-col justify-between flex-1 p-4 h-[45%]">
+        {/* Name + Price in one row */}
+        <div className="flex items-start justify-between gap-3">
           <Link
             href={href}
-            className="flex-1 group-hover/product-card:text-primary line-clamp-1 text-sm  font-semibold tracking-wide duration-200"
+            className="flex-1 group-hover/product-card:text-primary text-base sm:text-lg md:text-lg font-semibold tracking-wide duration-200 break-words"
           >
             {name}
           </Link>
 
-          {/* Price */}
-          <div className="ml-3 mb-1 flex flex-col items-end gap-0.5 whitespace-nowrap text-right">
+          <div className="flex flex-col items-end whitespace-nowrap text-right">
             {isDiscountActive && discountPrice ? (
               <>
-                <span className="text-muted-foreground text-[11px] sm:text-xs md:text-sm line-through">
+                <span className="text-muted-foreground text-[11px] sm:text-xs line-through">
                   {price.toString()} JOD
                 </span>
-
-                <span className="text-red-600 text-sm sm:text-base md:text-lg font-semibold">
+                <span className="text-red-600 text-sm sm:text-base font-semibold">
                   {discountPrice.toString()} JOD
                 </span>
               </>
             ) : (
-              <span className="text-primary text-sm sm:text-base md:text-lg font-semibold">
+              <span className="text-primary text-sm sm:text-base font-semibold">
                 {price.toString()} JOD
               </span>
             )}
           </div>
         </div>
-        
-        {/* Description - give a minimum height so cards remain aligned when short text or missing size */}
-        <p className="text-muted-foreground mb-2 line-clamp-2 text-sm sm:text-xs md:text-sm min-h-[2.25rem]">
-          {shortDescription}
-        </p>
 
-        {/* size and unit - keep reserved vertical space so presence/absence doesn't shift other elements */}
+        {/* Size */}
         {size ? (
-          <div className="text-black mb-1 inline-flex items-baseline gap-1">
-            Size:
-            <span className="font-semibold">{size}{unit}</span>
+          <div className="text-black inline-flex items-baseline gap-1 text-sm">
+            Size: <span className="font-semibold">{size}{unit}</span>
           </div>
         ) : (
-          // invisible placeholder to preserve spacing when size is not present
-          <div className="mb-1 min-h-[1.25rem]"></div>
+          <div className="min-h-[1.25rem]" />
         )}
 
-        {/* Action buttons - stay at bottom */}
-        <div className="mt-auto flex flex-row gap-2 sm:flex-row sm:gap-1 md:flex-row md:gap-2">
+        {/* Buttons */}
+        <div className="flex flex-row gap-2">
           <CartActionButton
             productId={id}
             showText
@@ -135,6 +121,7 @@ export const ProductCard: FC<ProductCardProps> = ({
         </div>
       </div>
 
+      {/* Attributes (bottom divider) */}
       {attributes.length > 0 && (
         <>
           <Separator className="bg-border/50 mx-auto w-[80%]" />
