@@ -24,8 +24,6 @@ export const ProductDetails: FC<
     | "cartItems"
     | "size"
     | "unit"
-      
-      
   >
 > = ({
   category,
@@ -41,11 +39,9 @@ export const ProductDetails: FC<
   cartItems,
   size,
   unit,
-  
-  
 }) => {
-  console.log("unit: ",unit);
-  
+  console.log("unit: ", unit)
+
   return (
     <div className="flex w-full flex-col space-y-4 md:col-span-3 lg:space-y-6">
       {/* Category */}
@@ -73,18 +69,18 @@ export const ProductDetails: FC<
           {isDiscountActive && discountPrice ? (
             <>
               {/* Discounted price */}
-              <span className="from-destructive to-destructive/70 bg-gradient-to-r bg-clip-text text-xl font-bold text-transparent sm:text-2xl md:text-3xl">
-               {discountPrice.toString()}JOD
+              <span className="from-destructive to-destructive/70  bg-gradient-to-r bg-clip-text text-xl font-bold text-transparent sm:text-2xl md:text-3xl">
+                <span> {discountPrice.toString()} JOD </span> 
               </span>
               {/* Original price crossed out */}
-              <span className="text-muted-foreground text-lg font-medium line-through sm:text-xl">
-                {price.toString()}JOD
+              <span className="text-muted-foreground  text-lg font-medium line-through sm:text-xl">
+                <span> {price.toString()} JOD</span>
               </span>
             </>
           ) : (
             /* Regular price */
             <span className="text-xl font-bold sm:text-2xl md:text-3xl">
-              {price.toString()}JOD
+              <span>{price.toString()} JOD</span>
             </span>
           )}
         </div>
@@ -107,13 +103,14 @@ export const ProductDetails: FC<
         </div>
       )}
 
-   {size &&  <div className="flex items-center gap-2">
-  <h3 className="text-base font-semibold md:text-lg">Size:</h3>
-  <p className="text-muted-foreground text-sm leading-relaxed">
-    {size} {unit}
-  </p>
-</div>}
-
+      {size && (
+        <div className="flex items-center gap-2">
+          <h3 className="text-base font-semibold md:text-lg">Size:</h3>
+          <p className="text-muted-foreground text-sm leading-relaxed">
+            {size} {unit}
+          </p>
+        </div>
+      )}
 
       {/* Actions */}
       <div className="flex w-full max-w-96 gap-3 pt-4">
