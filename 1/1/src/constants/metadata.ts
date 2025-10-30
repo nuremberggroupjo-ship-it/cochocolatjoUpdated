@@ -399,7 +399,7 @@ export const generateDynamicMetadata = {
       `Discover ${product.name} - premium artisan chocolate from CO Chocolat. Handcrafted with the finest Belgian and Swiss ingredients, this luxury chocolate offers an exceptional taste experience delivered fresh across Jordan.`;
 
     const productImage = product.images?.[0] || "/opengraph-image.jpg";
-
+//test comment
     return {
       title: product.name,
       description,
