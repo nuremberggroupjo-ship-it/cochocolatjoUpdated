@@ -74,10 +74,8 @@ export const DeliveryInfoContentForm: FC<DeliveryInfoContentFormProps> = ({
   const [open, setOpen] = useState(false)
   const [date, setDate] = useState<Date | undefined>(undefined)
   const [showNote, setShowNote] = useState(false)
-  console.log("showNote: ", showNote)
   const [isGift, setIsGift] = useState(false)
-  console.log("isGift:", isGift)
-  console.log("date: ", date)
+
 
   return (
     <Form {...form}>

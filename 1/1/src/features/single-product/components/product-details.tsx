@@ -40,7 +40,6 @@ export const ProductDetails: FC<
   size,
   unit,
 }) => {
-  console.log("unit: ", unit)
 
   return (
     <div className="flex w-full flex-col space-y-4 md:col-span-3 lg:space-y-6">

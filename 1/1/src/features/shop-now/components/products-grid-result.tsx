@@ -57,7 +57,6 @@ export const ProductsGridResult: FC<ProductsGridResultProps> = async ({
       />
     );
   }
-  console.log("products after: ",products);
 
   return (
     <div className="space-y-8">

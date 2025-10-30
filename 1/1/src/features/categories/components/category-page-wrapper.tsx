@@ -58,7 +58,6 @@ export const CategoryPageWrapper: FC<CategoryPageWrapperProps> = async ({
   if (!categories) {
     return null
   }
-  console.log("products: ",products);
   
   return (
 <FiltersLayout categories={categories} attributes={attributes}>

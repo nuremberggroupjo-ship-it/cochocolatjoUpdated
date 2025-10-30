@@ -43,7 +43,6 @@ export function DeliveryPlaceOrderContent({
 
   const { isPending, execute } = useAction(createDeliveryOrder, {
     onSuccess(args) {
-      console.log(args.data)
       router.push(`/checkout/success?orderNumber=${args.data?.orderNumber}`)
       toast.success(args.data?.message)
     },

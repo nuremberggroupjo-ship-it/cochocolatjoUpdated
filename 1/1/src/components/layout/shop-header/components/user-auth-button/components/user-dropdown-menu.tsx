@@ -52,7 +52,6 @@ export const UserDropdownMenu: FC<UserDropdownMenuProps> = ({ user }) => {
           router.refresh()
         }, 200)
       } catch (error) {
-        console.log("Sign out error:", error)
       }
     })
   }

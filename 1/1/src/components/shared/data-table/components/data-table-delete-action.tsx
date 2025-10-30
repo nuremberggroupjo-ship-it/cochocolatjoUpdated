@@ -45,7 +45,6 @@ export function DataTableDeleteAction<T>({
       props.onOpenChange?.(false)
     },
     onError(args) {
-      console.log(args.error)
       toast.error(args.error.serverError || "Deletion failed")
       props.onOpenChange?.(false)
     },

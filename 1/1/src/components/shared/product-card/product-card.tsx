@@ -33,9 +33,11 @@ export const ProductCard: FC<ProductCardProps> = ({
   stock,
 }) => {
   const href = `${baseHref}/${slug}`
-  const src = productImages[0]?.imageUrl
+  const src = productImages?.[0]?.imageUrl ?? "/placeholder.png"
   const discountPercentage =
-    ((Number(price) - Number(discountPrice)) / Number(price)) * 100
+    discountPrice && Number(price) > 0
+      ? ((Number(price) - Number(discountPrice)) / Number(price)) * 100
+      : 0
 
   return (
     <li className="group/product-card border-border/50 relative flex flex-col overflow-hidden rounded-lg border shadow h-[28rem] sm:h-[28rem] md:h-[32rem]">
@@ -52,7 +54,7 @@ export const ProductCard: FC<ProductCardProps> = ({
       </Link>
 
       {/* Discount badge */}
-      {isDiscountActive && (
+      {isDiscountActive && discountPrice && (
         <Badge
           variant="gradientDestructive"
           className="absolute top-2 right-2 z-10 font-semibold tracking-widest"
@@ -62,17 +64,34 @@ export const ProductCard: FC<ProductCardProps> = ({
       )}
 
       {/* Content (under image) */}
-      <div className="flex flex-col justify-between flex-1 p-4  ">
-        {/* Name + Price in one row */}
-        <div className="flex items-start justify-between gap-3">
-          <Link
-            href={href}
-            className="flex-1 group-hover/product-card:text-primary text-sm sm:text-sm md:text-base lg:text-base xl:text-xl font-semibold tracking-wide duration-200 break-words"
-          >
-            {name}
-          </Link>
+      <div className="flex flex-col justify-between flex-1 p-4">
+        {/* Name + (price+size responsive) */}
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2">
+          {/* LEFT: Name + (size on md+) */}
+          <div>
+            <Link
+              href={href}
+              className="block font-semibold text-sm sm:text-sm md:text-base lg:text-base xl:text-xl break-words group-hover/product-card:text-primary transition-colors duration-200"
+            >
+              {name}
+            </Link>
 
-          <div className="flex flex-col items-end whitespace-nowrap text-right">
+            {/* Size shown under the name on md+ (keeps original behavior) */}
+            {size ? (
+              <div className="hidden md:inline-flex items-baseline gap-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg mt-1 text-black">
+                <span className="text-muted-foreground text-xs md:text-sm">Size:</span>
+                <span className="font-semibold text-xs sm:text-xs md:text-base lg:text-base xl:text-lg">
+                  {size}
+                  {unit}
+                </span>
+              </div>
+            ) : (
+              <div className="hidden md:min-h-[1.25rem]" />
+            )}
+          </div>
+
+          {/* RIGHT (md+): Price (keeps original right-aligned price on larger screens) */}
+          <div className="hidden md:flex flex-col items-end whitespace-nowrap text-right">
             {isDiscountActive && discountPrice ? (
               <>
                 <span className="text-muted-foreground text-[11px] sm:text-xs line-through">
@@ -88,16 +107,37 @@ export const ProductCard: FC<ProductCardProps> = ({
               </span>
             )}
           </div>
-        </div>
 
-        {/* Size */}
-        {size ? (
-          <div className="text-black inline-flex items-baseline gap-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg">
-            Size: <span className="font-semibold text-xs sm:text-xs md:text-base lg:text-base xl:text-lg">{size}{unit}</span>
+          {/* SMALL SCREENS ONLY: Price stacked above Size (column) */}
+          <div className="flex flex-col md:hidden gap-1 mt-1 mb-5">
+            <div className="flex flex-col">
+              {isDiscountActive && discountPrice ? (
+                <>
+                  <span className="text-muted-foreground text-[12px] line-through">
+                    {price.toString()} JOD
+                  </span>
+                  <span className="text-red-600 text-lg sm:text-xl font-semibold leading-tight">
+                    {discountPrice.toString()} JOD
+                  </span>
+                </>
+              ) : (
+                <span className="text-primary text-lg sm:text-xl font-semibold">
+                  {price.toString()} JOD
+                </span>
+              )}
+            </div>
+
+            {size ? (
+              <div className="text-muted-foreground text-sm">
+                <span className="text-black text-sm mr-1 font-semibold ">Size:</span>
+                <span className="font-semibold text-xs">
+                  {size}
+                  {unit}
+                </span>
+              </div>
+            ) : null}
           </div>
-        ) : (
-          <div className="min-h-[1.25rem]" />
-        )}
+        </div>
 
         {/* Buttons */}
         <div className="flex flex-row gap-2">

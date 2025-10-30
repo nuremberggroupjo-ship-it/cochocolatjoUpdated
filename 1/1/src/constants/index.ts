@@ -10,7 +10,6 @@ export const SHOP_MAIN_NAV_LIST: ShopMainNavItem[] = [
   { id: "home", label: "Home", href: "/" },
   { id: "categories", label: "Categories", href: "/categories" },
   { id: "shop-now", label: "Shop Now", href: "/shop-now" },
-  { id: "gifting", label: "Gifting", href: "/gifting", comingSoon: true },
   { id: "about-us", label: "About Us", href: "/about-us" },
   { id: "contact-us", label: "Contact Us", href: "#contact"},
 ]

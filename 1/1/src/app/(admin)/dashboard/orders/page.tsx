@@ -21,9 +21,6 @@ export default function OrdersPage(props: WithRequiredSearchParams) {
     heading: { title, description },
     skeleton: { columnsCount, cellWidths },
   } = ADMIN_TABLE.orders
-
-
-  console.log("ADMIN_TABLE.orders: ",ADMIN_TABLE.orders);
   
 
   return (

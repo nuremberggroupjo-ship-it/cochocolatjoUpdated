@@ -21,9 +21,6 @@ export const orderNumberColumn = (): ColumnDef<OrderTableData> => ({
     const is_gift = !!(row.original as OrderTableData).is_gift
 
 
-console.log("orderNumber");
-
-
     return (
       <div className="flex items-center gap-1">
         {is_gift&& <code className="font-mono text-sm text-red-500">{orderNumber}</code>}

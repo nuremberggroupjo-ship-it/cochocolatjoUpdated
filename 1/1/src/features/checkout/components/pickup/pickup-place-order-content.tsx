@@ -33,7 +33,6 @@ export function PickupPlaceOrderContent({
 
   const { execute, isPending } = useAction(createPickupOrder, {
     onSuccess(args) {
-      console.log(args.data)
       router.push(`/checkout/success?orderNumber=${args.data?.orderNumber}`)
       toast.success(args.data?.message)
     },

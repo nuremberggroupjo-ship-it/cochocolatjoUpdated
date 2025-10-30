@@ -29,8 +29,6 @@ interface CategoriesProps {
 }
 
 export default async function Categories({ slug, searchParams }: CategoriesProps) {
-  console.log("Slug from URL:", slug);
-
   const { q, attribute, page, sort, sale, unit } = searchParams;
   const currentPage = Number(page) || 1;
   const attributes = toArray(attribute);

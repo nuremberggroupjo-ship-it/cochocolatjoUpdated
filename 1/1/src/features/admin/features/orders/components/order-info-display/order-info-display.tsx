@@ -37,10 +37,7 @@ export function OrderInfoDisplay({ order }: OrderInfoDisplayProps) {
     updatedAt,
     is_gift,
     date
-  } = order
-
-  console.log("order: ",order);
-  
+  } = order  
 
   return (
     <div className="space-y-4 md:space-y-6">
