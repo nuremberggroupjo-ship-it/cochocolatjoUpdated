@@ -400,6 +400,7 @@ export const generateDynamicMetadata = {
 
     const productImage = product.images?.[0] || "/opengraph-image.jpg";
 //test comment
+//test comment
     return {
       title: product.name,
       description,
