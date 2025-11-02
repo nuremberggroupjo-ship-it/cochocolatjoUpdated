@@ -71,7 +71,7 @@ export const ProductCard: FC<ProductCardProps> = ({
           <div>
             <Link
               href={href}
-              className="block font-semibold text-sm sm:text-sm md:text-base lg:text-base xl:text-xl break-words group-hover/product-card:text-primary transition-colors duration-200"
+              className="block font-semibold text-xs sm:text-xs md:text-base lg:text-base xl:text-xl break-words group-hover/product-card:text-primary transition-colors duration-200"
             >
               {name}
             </Link>

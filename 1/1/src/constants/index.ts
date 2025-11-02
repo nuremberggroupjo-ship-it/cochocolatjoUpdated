@@ -28,7 +28,7 @@ export const FOOTER_ADDRESS = {
 }
 export const NUREMBERG_GROUP_HREF = "https://nurembergtech.com/"
 
-export const PRODUCTS_PER_PAGE = 8
+export const PRODUCTS_PER_PAGE = 9
 export const FEATURED_PRODUCTS_PER_PAGE = 5
 
 export const SOCIAL_LINKS: SocialLink[] = [

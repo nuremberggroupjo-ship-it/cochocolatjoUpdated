@@ -55,7 +55,7 @@ export default async function Categories({ slug, searchParams }: CategoriesProps
     >
       <div className="space-y-10 group-has-[[data-pending]]:animate-pulse">
         <Suspense
-          fallback={<ProductsGridSkeleton length={8} withTitle />}
+          fallback={<ProductsGridSkeleton length={9} withTitle />}
           key={`${slug}-${q}-${pageCategories.join(",")}-${attributes?.join(",")}-${currentPage}-${sort}-${sales.join(",")}`}
         >
           <ProductsGridResult
