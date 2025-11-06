@@ -26,7 +26,7 @@ export const saveProductSchema = z
       .max(100, "Slug cannot exceed 100 characters"),
     price: z.coerce
       .number()
-      .min(0.01, "Price is required and must be greater than 0"),
+      .min(0, "Price is required and must be greater than 0"),
     discountPrice: z.coerce.number().positive().nullable().optional(),
     isDiscountActive: z.boolean(),
     stock: z.coerce
