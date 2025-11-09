@@ -34,6 +34,7 @@ export function DataTable<TData>({
   className,
   children,
   isLoading,
+  
   ...props
 }: DataTableProps<TData>) {
   return (

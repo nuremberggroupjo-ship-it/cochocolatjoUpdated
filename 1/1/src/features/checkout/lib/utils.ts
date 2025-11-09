@@ -1,11 +1,35 @@
-/**
- * Generate unique order number
- */
-export const generateOrderNumber = (): string => {
-  const now = new Date()
-  const dateString = now.toISOString().slice(0, 10).replace(/-/g, "") // YYYYMMDD
-  const timeString = now.toISOString().slice(11, 19).replace(/:/g, "") // HHMMSS
-  const randomString = Math.random().toString(36).substring(2, 8).toUpperCase()
+import prisma from "@/lib/prisma"
 
-  return `order_${dateString}_${timeString}_${randomString}`
+/**
+ * Generate unique order number: YYYYMMDD_XXXX
+ */
+export const generateUniqueOrderNumber = async (): Promise<string> => {
+  let isUnique = false
+  let orderNumber = ""
+
+  while (!isUnique) {
+    const now = new Date()
+    const datePart = now
+      .toISOString()
+      .slice(0, 10) 
+      .split("-") 
+      .reverse() 
+      .map((part, index) => (index === 2 ? part.slice(2) : part)) 
+      .join("") 
+
+    const randomPart = Math.floor(1000 + Math.random() * 9000) 
+    orderNumber = `${datePart}_${randomPart}`
+
+    // Check uniqueness in the DB
+    const existingOrder = await prisma.order.findUnique({
+      where: { orderNumber },
+      select: { id: true },
+    })
+
+    if (!existingOrder) {
+      isUnique = true
+    }
+  }
+
+  return `Order_${orderNumber}`
 }

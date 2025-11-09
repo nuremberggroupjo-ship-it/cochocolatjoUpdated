@@ -25,6 +25,7 @@ interface DataTablePaginationProps<TData> {
 export function DataTablePagination<TData>({
   table,
   pageSizeOptions = ADMIN_PER_PAGE_OPTIONS,
+  
 }: DataTablePaginationProps<TData>) {
   const hasSelectionColumn = table
     .getAllColumns()
@@ -47,6 +48,7 @@ export function DataTablePagination<TData>({
             onValueChange={(value) => {
               table.setPageSize(Number(value))
             }}
+            
           >
             <SelectTrigger className="h-8 w-[4.5rem]">
               <SelectValue placeholder={table.getState().pagination.pageSize} />

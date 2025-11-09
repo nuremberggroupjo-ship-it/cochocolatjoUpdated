@@ -15,7 +15,7 @@ import { actionClient } from "@/lib/safe-action"
 
 import { API_RESPONSE_MESSAGES, REVALIDATE_TAGS } from "@/constants"
 
-import { generateOrderNumber } from "@/features/checkout/lib/utils"
+import { generateUniqueOrderNumber } from "@/features/checkout/lib/utils"
 import { AddressSchema } from "@/features/checkout/schemas/address.schema"
 import {
   type DeliveryInfoFormData,
@@ -113,9 +113,10 @@ export const createDeliveryOrder = actionClient
     // Create order in database transaction
     const order = await prisma.$transaction(async (tx) => {
       // Create order
+       const orderNumber = await generateUniqueOrderNumber()
       const newOrder = await tx.order.create({
         data: {
-          orderNumber: generateOrderNumber(),
+          orderNumber: orderNumber,
           status: "PENDING",
           deliveryType: "DELIVERY",
           paymentMethod: user.paymentMethod, // Default for delivery

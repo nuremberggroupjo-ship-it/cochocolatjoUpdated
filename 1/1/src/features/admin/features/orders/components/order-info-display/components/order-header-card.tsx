@@ -40,6 +40,9 @@ export const OrderHeaderCard = (
     totalPrice,
   } = props
 
+  console.log("orderNumber: ",orderNumber);
+  
+
   return (
     <Card className="shadow-none">
       <CardHeader>
@@ -47,7 +50,7 @@ export const OrderHeaderCard = (
           <div className="space-y-1">
             <CardTitle className="flex items-center gap-2">
               <ShoppingCartIcon className="size-5" />
-              Order number : {orderNumber}
+              Order number : {orderNumber} 
             </CardTitle>
             <CardDescription>
               Placed on {formatDate(createdAt as Date)}

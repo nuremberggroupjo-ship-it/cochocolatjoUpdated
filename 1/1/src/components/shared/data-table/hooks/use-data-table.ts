@@ -218,7 +218,10 @@ export function useDataTable<TData>({
     },
     pageCount,
     state: {
-      pagination,
+      pagination: {
+      pageIndex: 0, 
+      pageSize: 50, 
+    },
       columnVisibility,
       sorting,
       rowSelection,
