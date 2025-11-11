@@ -199,6 +199,7 @@ export const ProductForm: FC<ProductFormProps> = ({
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="enter">Please select a unit</SelectItem>
+              <SelectItem value="Pcs">Pcs</SelectItem>
               <SelectItem value="g">g</SelectItem>
               <SelectItem value="ml">ml</SelectItem>
             </SelectContent>
