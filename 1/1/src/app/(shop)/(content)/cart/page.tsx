@@ -36,7 +36,7 @@ async function CartPageData({ currentPage }: { currentPage: number }) {
           ...data.cart,
           itemsPrice: Number(data.cart.itemsPrice),
           totalPrice: Number(data.cart.totalPrice),
-          shippingPrice: Number(data.cart.shippingPrice),
+          shippingPrice: Number(data.cart.shippingPrice) ,
         }
       : null,
   }

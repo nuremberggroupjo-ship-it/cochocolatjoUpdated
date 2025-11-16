@@ -137,7 +137,7 @@ export function OrderSummary({
               <span>Shipping</span>
               <span>
                 {shippingPrice === 0 ? (
-                  <span className="text-success">Free</span>
+                  <span className="text-success">Shipping fees will be added</span>
                 ) : (
                   formatPrice(shippingPrice)
                 )}

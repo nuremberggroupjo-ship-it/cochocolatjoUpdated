@@ -21,6 +21,10 @@ export const OrderItemsCard = (
 ) => {
   const { orderItems, itemsPrice, shippingPrice, totalPrice } = props
 
+ 
+  
+  
+
   return (
     <Card className="shadow-none">
       <CardHeader>
@@ -101,7 +105,7 @@ export const OrderItemsCard = (
               <span>Shipping</span>
               <span>
                 {Number(shippingPrice) === 0 ? (
-                  <span className="text-success">Free</span>
+                  <span className="text-success">Shipping fees will be added</span>
                 ) : (
                   ORDER_UTILS.formatPrice(Number(shippingPrice))
                 )}
