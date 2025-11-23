@@ -65,6 +65,7 @@ export const ProductPreviewImages: FC<ProductPreviewImagesProps> = ({
                     fill
                     priority
                     className="object-cover"
+                    unoptimized
                   />
 
                  

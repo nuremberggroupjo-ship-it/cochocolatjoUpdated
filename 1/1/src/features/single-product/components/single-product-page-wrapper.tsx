@@ -35,6 +35,7 @@ export const SingleProductPageWrapper = async ({
     <section className="mx-auto py-4 lg:container lg:px-0 lg:py-6">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-5 md:gap-8">
         <ProductPreviewImages images={product.productImages} />
+       
         <ProductDetails
           category={product.category}
           ingredients={product.ingredients}
