@@ -42,6 +42,7 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
               fill
               sizes="(max-width: 375px) 64px, (max-width: 768px) 80px, 80px"
               className="object-cover transition-all duration-300 group-hover:scale-105"
+              unoptimized
             />
           </div>
         </Link>
@@ -109,6 +110,7 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
               fill
               sizes="(max-width: 1200px) 72px, 80px"
               className="object-cover transition-all duration-300 group-hover:scale-105"
+              unoptimized
             />
           </div>
         </Link>
