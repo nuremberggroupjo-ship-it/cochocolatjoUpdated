@@ -183,6 +183,7 @@ export const ProductPreviewImages: FC<ProductPreviewImagesProps> = ({
                       className="object-cover"
                       sizes="(max-width: 640px) 320px, 384px"
                       priority={index === 0}
+                      unoptimized
                     />
                   </div>
                 </div>
