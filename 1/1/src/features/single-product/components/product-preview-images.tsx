@@ -66,6 +66,8 @@ export const ProductPreviewImages: FC<ProductPreviewImagesProps> = ({
                     priority
                     className="object-cover"
                   />
+
+                 
                 </div>
               ))}
             </div>
@@ -81,6 +83,8 @@ export const ProductPreviewImages: FC<ProductPreviewImagesProps> = ({
             }}
             className="w-full"
           >
+
+            
             <CarouselContent>
               {images.map(({ id, imageUrl }) => (
                 <CarouselItem key={id} className="flex items-center">

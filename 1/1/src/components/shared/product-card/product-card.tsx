@@ -50,6 +50,7 @@ export const ProductCard: FC<ProductCardProps> = ({
           sizes="(max-width: 768px) 100vw, 300px"
           className="object-cover transition-transform duration-300 group-hover/product-card:scale-105"
           priority
+          unoptimized
         />
       </Link>
 
