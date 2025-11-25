@@ -79,6 +79,7 @@ export function OrderSummary({
                       width={64}
                       height={64}
                       className="size-full object-cover"
+                      unoptimized
                     />
                   </div>
 

@@ -57,6 +57,7 @@ function SortableItem({ product }: { product: Product }) {
         width={400}
         height={128}
         className="w-full h-32 object-cover rounded-md mb-2"
+        unoptimized
       />
       <span className="font-semibold">{product.name}</span>
     </div>

@@ -25,6 +25,7 @@ export const productImageColumn = (): ColumnDef<ProductData> => ({
         height={35}
         quality={100}
         className={"ml-2.5 size-auto max-w-[45px] object-cover"}
+        unoptimized
       />
     )
   },

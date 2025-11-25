@@ -25,6 +25,7 @@ export const CategoryItem: FC<Category> = ({ name, thumbnailImage, slug }) => {
             fill
             sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
             className="bg-accent object-cover transition-transform duration-300 group-hover/category-card:scale-110"
+            unoptimized
           />
         </div>
 

@@ -71,6 +71,7 @@ export const HeroSection: FC<HeroSectionProps> = ({ banners }) => {
                   className="object-cover"
                   sizes="100vw"
                   quality={85}
+                  unoptimized
                 />
 
                 <Link

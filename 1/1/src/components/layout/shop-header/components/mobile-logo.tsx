@@ -16,6 +16,7 @@ export const MobileLogo: FC = () => {
         height={200}
         className="w-20"
         priority
+        unoptimized
       />
     </Link>
   )

@@ -41,6 +41,7 @@ export const AttributesTable: FC<AttributesTableProps> = ({
                     fill
                     className="object-contain"
                     sizes="48px"
+                    unoptimized
                   />
                 </div>
               </div>

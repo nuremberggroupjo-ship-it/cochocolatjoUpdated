@@ -46,6 +46,7 @@ export const OrderItemsCard = ({
                     fill
                     sizes="64px"
                     className="object-cover transition-all duration-200 hover:scale-105"
+                    unoptimized
                   />
                 </Link>
 

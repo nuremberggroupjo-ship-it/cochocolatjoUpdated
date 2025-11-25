@@ -24,6 +24,7 @@ export default function AboutUsPage() {
           width={800}
           height={600}
           className=""
+          unoptimized
         />
       </div>
 
@@ -54,6 +55,7 @@ export default function AboutUsPage() {
             width={400}
             height={300}
             className="h-auto w-full"
+            unoptimized
           />
         </div>
         <div className="flex justify-center">
@@ -63,6 +65,7 @@ export default function AboutUsPage() {
             width={400}
             height={300}
             className="h-auto w-full"
+            unoptimized
           />
         </div>
         <div className="flex justify-center">
@@ -72,6 +75,7 @@ export default function AboutUsPage() {
             width={400}
             height={300}
             className="h-auto w-full"
+            unoptimized
           />
         </div>
       </div>
@@ -129,6 +133,7 @@ export default function AboutUsPage() {
             width={500}
             height={400}
             className="h-auto w-full"
+            unoptimized
           />
         </div>
         <div className="flex justify-center">
@@ -138,6 +143,7 @@ export default function AboutUsPage() {
             width={500}
             height={400}
             className="h-auto w-full"
+            unoptimized
           />
         </div>
       </div>

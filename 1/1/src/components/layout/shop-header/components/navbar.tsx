@@ -69,6 +69,7 @@ export const Navbar: FC<NavbarProps> = ({ children }) => {
               height={100}
               className="w-[180px]"
               priority
+              unoptimized
             />
           </Link>
         )}

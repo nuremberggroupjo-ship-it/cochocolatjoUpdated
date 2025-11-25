@@ -97,6 +97,7 @@ export const SingleImageUpload = <T extends FieldValues>({
               className="object-contain"
               sizes="(max-width: 768px) 100vw, 500px"
               priority
+              unoptimized   
             />
           </div>
 

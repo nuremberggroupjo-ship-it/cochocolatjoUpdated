@@ -33,6 +33,7 @@ export const CategoryLayoutWrapper: FC<CategoryLayoutWrapperProps> = async ({
             width={1250}
             height={400}
             className="aspect-[16/5.5] w-full rounded"
+            unoptimized
           />
         )}
         <h1 className="font-bold tracking-wider sm:text-base md:text-xl lg:text-2xl">

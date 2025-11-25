@@ -15,6 +15,7 @@ export const Logo: FC = () => {
           height={400}
           className="w-[350px]"
           priority
+          unoptimized
         />
       </Link>
     </div>

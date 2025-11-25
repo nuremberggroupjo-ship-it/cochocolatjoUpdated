@@ -157,6 +157,7 @@ export const ProductImagesUpload: FC<ProductImagesUploadProps> = ({
                     height={300}
                     className="h-full w-full object-cover"
                     priority
+                    unoptimized
                   />
 
                   {removeAttachment && (

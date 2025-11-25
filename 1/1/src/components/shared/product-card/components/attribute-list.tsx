@@ -29,6 +29,7 @@ export const AttributeList: FC<AttributeListProps> = ({ attributes }) => {
                 fill
                 sizes="32px"
                 className="object-cover"
+                unoptimized
               />
             </li>
           }

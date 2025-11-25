@@ -23,6 +23,7 @@ export const imageColumn = <T,>(className?: string): ColumnDef<T> => ({
         height={35}
         quality={100}
         className={cn("ml-2.5 max-w-[45px] object-cover", className)}
+        unoptimized
       />
     )
   },

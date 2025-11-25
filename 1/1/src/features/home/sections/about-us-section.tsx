@@ -19,6 +19,7 @@ export const AboutUsSection: FC = () => {
             height={400}
             alt="About Us"
             className="aspect-8/8 w-full rounded-lg object-cover"
+            unoptimized
           />
         </div>
 

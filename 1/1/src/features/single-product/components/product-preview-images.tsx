@@ -95,6 +95,7 @@ export const ProductPreviewImages: FC<ProductPreviewImagesProps> = ({
                         src={imageUrl}
                         alt={`Product image ${id}`}
                         className="h-full w-full object-cover"
+                        
                       />
                     </div>
                   </div>
@@ -125,6 +126,7 @@ export const ProductPreviewImages: FC<ProductPreviewImagesProps> = ({
                     className="object-cover"
                     sizes="(max-width: 1024px) 50vw, 50vw"
                     priority
+                    unoptimized
                   />
                 </div>
               </CarouselItem>
@@ -154,6 +156,7 @@ export const ProductPreviewImages: FC<ProductPreviewImagesProps> = ({
                     className="object-cover"
                     sizes="64px"
                     priority
+                    unoptimized
                   />
                 </div>
               ))}
