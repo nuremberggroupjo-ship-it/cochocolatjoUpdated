@@ -37,9 +37,9 @@ export const CartSummary: FC = async () => {
         </div>
 
         <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">Shipping</span>
+          <span className="text-muted-foreground">Delivery</span>
           <span>
-            {shippingPrice === 0 ? "Shipping fees will be added" : formatPrice(shippingPrice)}
+            {shippingPrice === 0 ? "Delivery fees will be added" : formatPrice(shippingPrice)}
           </span>
         </div>
 

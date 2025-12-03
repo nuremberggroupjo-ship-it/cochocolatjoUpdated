@@ -103,10 +103,10 @@ export const OrderItemsCard = (
               <span>{ORDER_UTILS.formatPrice(Number(itemsPrice))}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span>Shipping</span>
+              <span>Delivery</span>
               <span>
                 {Number(shippingPrice) === 0 ? (
-                  <span className="text-success">Shipping fees will be added</span>
+                  <span className="text-success">Delivery fees will be added</span>
                 ) : (
                   ORDER_UTILS.formatPrice(Number(shippingPrice))
                 )}
